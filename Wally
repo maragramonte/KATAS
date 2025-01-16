@@ -1,0 +1,30 @@
+public class WallyFinder {
+
+    public static int wheresWally(String str) {
+        // Recorremos la cadena de texto
+        for (int i = 0; i < str.length() - 4; i++) {
+            // Comprobamos si la secuencia de caracteres es igual a "Wally"
+            if (str.charAt(i) == 'W' && str.charAt(i + 1) == 'a' && str.charAt(i + 2) == 'l' && str.charAt(i + 3) == 'l' && str.charAt(i + 4) == 'y') {
+                
+                // Verificamos que "Wally" no esté precedida ni seguida por una letra (es decir, no es parte de otra palabra)
+                if (i == 0 || str.charAt(i - 1) == ' ' || str.charAt(i - 1) == '.' || str.charAt(i - 1) == '\'') {
+                    if (i + 5 == str.length() || str.charAt(i + 5) == ' ' || str.charAt(i + 5) == '.' || str.charAt(i + 5) == '\'') {
+                        return i; // Devolvemos el índice de inicio de "Wally"
+                    }
+                }
+            }
+        }
+        return -1; // Si no encontramos "Wally"
+    }
+
+    public static void main(String[] args) {
+        // Pruebas manuales
+        System.out.println(wheresWally("Wally")); // 0
+        System.out.println(wheresWally("¿Dónde está Wally?")); // 8
+        System.out.println(wheresWally("¿Dónde está Waldo?")); // -1
+        System.out.println(wheresWally("DWally Wallyd .Wally")); // -1
+        System.out.println(wheresWally("Hola Wally.")); // 3
+        System.out.println(wheresWally("Es de Wally.")); // 5
+        System.out.println(wheresWally("Wally Wally")); // 0
+    }
+}
