@@ -1,0 +1,55 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class StockList {
+
+    public static String stockList(List<String> listaDeCodigos, List<String> listaDeCategorias) {
+        // Verificar si alguna de las listas está vacía
+        if (listaDeCodigos == null || listaDeCodigos.isEmpty() || listaDeCategorias == null || listaDeCategorias.isEmpty()) {
+            return "";
+        }
+
+        // Crear un HashMap para almacenar el stock por categoría
+        Map<String, Integer> stockPorCategoria = new HashMap<>();
+
+        // Iterar sobre cada código en la lista de códigos
+        for (String codigo : listaDeCodigos) {
+            // Obtener la categoría (primer carácter del código)
+            String categoria = String.valueOf(codigo.charAt(0));
+
+            // Obtener la cantidad (el número después del espacio)
+            int cantidad = Integer.parseInt(codigo.split(" ")[1]);
+
+            // Actualizar el stock de la categoría
+            stockPorCategoria.put(categoria, stockPorCategoria.getOrDefault(categoria, 0) + cantidad);
+        }
+
+        // Crear una lista para el resultado
+        StringBuilder resultado = new StringBuilder();
+
+        // Iterar sobre cada categoría en la lista de categorías
+        for (String categoria : listaDeCategorias) {
+            // Obtener la cantidad correspondiente a la categoría, o 0 si no está en el stock
+            int cantidad = stockPorCategoria.getOrDefault(categoria, 0);
+
+            // Añadir el formato "(categoria : cantidad)" al resultado
+            if (resultado.length() > 0) {
+                resultado.append(" - ");
+            }
+            resultado.append("(").append(categoria).append(" : ").append(cantidad).append(")");
+        }
+
+        // Devolver la cadena resultante
+        return resultado.toString();
+    }
+
+    // Ejemplo de uso
+    public static void main(String[] args) {
+        List<String> listaDeCodigos = List.of("A 5", "B 3", "A 2", "C 7");
+        List<String> listaDeCategorias = List.of("A", "B", "C", "D");
+
+        String resultado = stockList(listaDeCodigos, listaDeCategorias);
+        System.out.println(resultado);
+    }
+}
