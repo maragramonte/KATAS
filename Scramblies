@@ -1,0 +1,38 @@
+public class Scramblies {
+
+    public static boolean scramble(String str1, String str2) {
+        // Si str2 es más largo que str1, no es posible formar str2
+        if (str2.length() > str1.length()) {
+            return false;
+        }
+
+        // Crear un arreglo para contar la frecuencia de cada letra en str1 y str2
+        int[] count1 = new int[26]; // Array para contar las letras de str1
+        int[] count2 = new int[26]; // Array para contar las letras de str2
+
+        // Contar las frecuencias de las letras en str1
+        for (char c : str1.toCharArray()) {
+            count1[c - 'a']++;
+        }
+
+        // Contar las frecuencias de las letras en str2
+        for (char c : str2.toCharArray()) {
+            count2[c - 'a']++;
+        }
+
+        // Verificar si en str1 hay suficientes caracteres para cubrir los de str2
+        for (int i = 0; i < 26; i++) {
+            if (count2[i] > count1[i]) {
+                return false;
+            }
+        }
+
+        // Si no encontramos ninguna discrepancia, es posible formar str2
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(scramble("rkqodlw", "world")); // true
+        System.out.println(scramble("abcabc", "abbccc")); // false
+    }
+}
