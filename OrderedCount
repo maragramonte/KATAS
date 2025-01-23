@@ -1,0 +1,25 @@
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.lang3.tuple.Pair;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class OrderedCount {
+    public static List<Pair<Character, Integer>> orderedCount(String text) {
+        // Usamos LinkedHashMap para mantener el orden de aparición de los caracteres
+        Map<Character, Integer> counts = new LinkedHashMap<>();
+
+        // Recorremos cada carácter del texto
+        for (char c : text.toCharArray()) {
+            counts.put(c, counts.getOrDefault(c, 0) + 1);
+        }
+
+        // Convertimos el mapa a una lista de pares
+        List<Pair<Character, Integer>> result = new ArrayList<>();
+        for (Map.Entry<Character, Integer> entry : counts.entrySet()) {
+            result.add(Pair.of(entry.getKey(), entry.getValue()));
+        }
+
+        return result;
+    }
+}
