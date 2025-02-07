@@ -1,0 +1,32 @@
+/* Función maxProduct(numbers, sub_size):
+    Ordenar(numbers)  // Ordena el arreglo en orden ascendente
+    product = 1       // Inicializa el producto
+    n = longitud de numbers
+    
+    Para i desde 0 hasta sub_size - 1:
+        product = product * numbers[n - 1 - i]  // Multiplicar por los números más grandes
+    
+    Retornar product  // Devuelve el producto calculado
+ */
+
+import java.util.Arrays;
+
+public class Solution
+{
+    public static long maxProduct(int[] numbers, int sub_size)
+    {
+        // Ordenamos el arreglo en orden ascendente
+        Arrays.sort(numbers);
+        
+        long product = 1;
+        int n = numbers.length;
+        
+        // Caso cuando sub_size es mayor o igual a 3 y tenemos que verificar elementos negativos
+        // Utilizamos un enfoque que evalúa el producto de los k más grandes números
+        for (int i = 0; i < sub_size; i++) {
+            product *= numbers[n - 1 - i];
+        }
+        
+        return product;
+    }
+}
